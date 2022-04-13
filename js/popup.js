@@ -55,38 +55,6 @@ $('#search_field').change(async function() {
 
 });
 
-// async function dumpNode(pattern) {
-//   const head = `<span id="highLight">`;
-//   const tail = `</span>`;
-//   let nodeSet = new Set();
-//   function searchNode(element, pattern){    
-//     for(let node of element.childNodes) {
-//       switch(node.nodeType) {
-//         case Node.DOCUMENT_NODE:
-//           searchNode(node, pattern);
-//           break;
-
-//         case Node.ELEMENT_NODE:
-//           searchNode(node, pattern);
-//           break;
-          
-//         case Node.TEXT_NODE:
-//           for(let word of pattern) {
-//             let textIndex = String(node.textContent).indexOf(word);
-//             if(textIndex != -1) {
-//               nodeSet.add(node.parentNode);
-//             }
-//           }
-//           searchNode(node, pattern);
-//           break;
-          
-
-//         default:
-//           break;
-//       }
-//     }  
-//   }
-
 //   searchNode(document.body, pattern);
 
 //   nodeSet.forEach(function(node){
