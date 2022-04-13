@@ -1,0 +1,32 @@
+{
+  "name": "Initial consonant search",
+  "description": "한글 초성 검색",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": ["storage", "activeTab", "scripting", "tabs"],
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "css": ["/css/foreground_styles.css"],
+      "js": ["/js/jquery-3.6.0.min.js", "/js/content.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "/js/background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'",
+    "sandbox": "sandbox allow-scripts; script-src 'self' 'https://apis.google.com/' 'https://www.googleapis.com' 'https://ajax.googleapis.com'; object-src 'self'"
+  },
+
+  "web_accessible_resources": [{
+    "resources": ["/js/jquery-3.6.0.min.js"],
+    "matches": ["http://*/*", "https://*/*"],
+    "extension_ids": []
+  }]
+}
