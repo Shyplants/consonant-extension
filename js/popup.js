@@ -26,14 +26,6 @@ $('#search_field').change(async function() {
   });
 
   // chrome.tabs.sendMessage(tab.id, {action: "matching", val: $('#search_field').val()} /* callback */);
-
-  // let pattern = await chrome.scripting.executeScript(
-  // {
-  //   target: { tabId: tab.id },
-  //   function: matching,
-  //   args: [$('#search_field').val()],
-  // });
-  // pattern = pattern[0].result;
   
   // let patternElement = await chrome.scripting.executeScript(
   // {
