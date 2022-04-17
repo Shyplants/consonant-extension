@@ -1,7 +1,7 @@
-let tab;
-
-function init() {
-  [tab] = chrome.tabs.query({ active: true, currentWindow: true});
+async function getCurrentTab() {
+  let queryOptions = { active: true, currentWindow: true };
+  let [tab] = await chrome.tabs.query(queryOptions);
+  return tab;
 }
 
 function setCurrentIndex(index) {
@@ -27,31 +27,51 @@ function createPrevButtonListener() {
   const prevBtn = document.querySelector('#prevBtn');
 
   prevBtn.addEventListener('click', () => {
-    chrome.tabs.sendMessage(tab.id, {action: "prevBtn"}, (response) => {
-      setCurrentIndex(min(response.current_index + 1, response.cnt));
+    chrome.runtime.sendMessage({action:"getTab"}, (tabId) => {
+      chrome.tabs.sendMessage({action: "prevBtn"}, (response) => {
+        setCurrentIndex(min(response.current_index + 1, response.cnt));
+      });
     });
+    
   })
+
+  // prevBtn.addEventListener('click', () => {
+  //   chrome.tabs.sendMessage(tab.id, {action: "prevBtn"}, (response) => {
+  //     setCurrentIndex(min(response.current_index + 1, response.cnt));
+  //   });
+  // })
 }
 
 function createNextButtonListener() {
   const nextBtn = document.querySelector('#nextBtn');
 
   nextBtn.addEventListener('click', () => {
-    chrome.tabs.sendMessage(tab.id, {action: "nextBtn"}, (response) => {
+    chrome.runtime.sendMessage({action: "nextBtn"}, (response) => {
       setCurrentIndex(min(response.current_index + 1, response.cnt));
     });
   })
+
+  // nextBtn.addEventListener('click', () => {
+  //   chrome.tabs.sendMessage(tab.id, {action: "nextBtn"}, (response) => {
+  //     setCurrentIndex(min(response.current_index + 1, response.cnt));
+  //   });
+  // })
 }
 
 function createSearchInputListener() {
   const searchInput = document.querySelector('#searchInput');
-  const searchInputValue = getSearchInputValue();
-
+  
   searchInput.addEventListener('change', () => {
-    chrome.runtime.sendMessage(tab.id, {action: "change", val: searchInputValue}, (response) => {
-      setTotalCount(response.cnt);
-      setCurrentIndex(min(response.current_index + 1, response.cnt));
+    const searchInputValue = getSearchInputValue();
+
+    chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, {action: "change", val: searchInputValue}, (response) => {
+        setTotalCount(response.cnt);
+        setCurrentIndex(min(response.current_index + 1, response.cnt));
+      });
     });
+
+    
 
     // chrome.tabs.sendMessage(tab.id, {action: "change", val: searchInputValue}, (response) => {
     //   setTotalCount(response.cnt);

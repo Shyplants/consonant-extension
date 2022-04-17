@@ -114,11 +114,10 @@ window.onload = () => {
     retNode[nodeIndex].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
   }
     
-
-  chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
-    console.log(msg);
-    
+  chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+    console.log('enter2');
     if (msg.action === "change") { 
+      console.log('B: ' + msg.val);
       fresh();
       matching(msg.val);
       dumpNode(Array.from(matchNode));
@@ -140,7 +139,8 @@ window.onload = () => {
       focusNode();
       sendResponse({ cnt:nodeCnt, currentIndex:nodeIndex });
     }
-  
+
+    return true;
   });
 
 }
