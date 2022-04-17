@@ -1,7 +1,7 @@
 let tab;
 
 function init() {
-  [tab] = await chrome.tabs.query({ active: true, currentWindow: true});
+  [tab] = chrome.tabs.query({ active: true, currentWindow: true});
 }
 
 function setCurrentIndex(index) {
@@ -46,13 +46,17 @@ function createNextButtonListener() {
 function createSearchInputListener() {
   const searchInput = document.querySelector('#searchInput');
   const searchInputValue = getSearchInputValue();
-  
 
   searchInput.addEventListener('change', () => {
-    chrome.tabs.sendMessage(tab.id, {action: "change", val: searchInputValue}, (response) => {
+    chrome.runtime.sendMessage(tab.id, {action: "change", val: searchInputValue}, (response) => {
       setTotalCount(response.cnt);
       setCurrentIndex(min(response.current_index + 1, response.cnt));
     });
+
+    // chrome.tabs.sendMessage(tab.id, {action: "change", val: searchInputValue}, (response) => {
+    //   setTotalCount(response.cnt);
+    //   setCurrentIndex(min(response.current_index + 1, response.cnt));
+    // });
   });
 }
 
@@ -80,7 +84,7 @@ function createSearchInputListener() {
 
 
 window.onload = () => {
-  init();
+  // init();
   createPrevButtonListener();
   createNextButtonListener();
   createSearchInputListener();

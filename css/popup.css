@@ -3,35 +3,35 @@ body {
   padding: 0.2rem;
 }
 
-#search_group {
+#searchGroup {
   display: flex;
   justify-content: center;
 }
 
-#search_field {
+#searchInput {
   margin-left: 0.5em;
 }
 
-#btn_group { 
+#btnGroup { 
   display: flex;
   justify-content: center;
 }
 
-#btn_group button { 
+#btnGroup button { 
   border: 1px solid skyblue; 
   background-color: rgba(0,0,0,0); 
   color: skyblue;
 }
 
-#prev_btn { 
+#prevBtn { 
   margin: 0.5em 1em 0em 1em;
 } 
 
-#next_btn { 
+#nextBtn { 
   margin: 0.5em 1em 0em 1em;
 } 
 
-#output_group {
+#outputGroup {
   display: flex;
   justify-content: center;
 }
