@@ -124,21 +124,21 @@ window.onload = () => {
       dumpNode(Array.from(matchNode));
       focusNode();
 
-      sendResponse({ cnt:nodeCnt, current_index:nodeIndex });
+      sendResponse({ cnt:nodeCnt, currentIndex:nodeIndex });
     }
 
-    else if(msg.action === 'prev_btn') {
+    else if(msg.action === 'prevBtn') {
       nodeIndex = Math.max(0, nodeIndex-1);
 
       focusNode();
-      sendResponse({ cnt:nodeCnt, current_index:nodeIndex });
+      sendResponse({ cnt:nodeCnt, currentIndex:nodeIndex });
     }
 
-    else if(msg.action === 'next_btn') {
+    else if(msg.action === 'nextBtn') {
       nodeIndex = Math.min(nodeCnt-1, nodeIndex+1);
 
       focusNode();
-      sendResponse({ cnt:nodeCnt, current_index:nodeIndex });
+      sendResponse({ cnt:nodeCnt, currentIndex:nodeIndex });
     }
   
   });
